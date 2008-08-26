@@ -5,7 +5,11 @@ AM_CXXFLAGS = -Wall -Wextra \
 
 bin_PROGRAMS = wordtip
 
-core_sources = feature-ex.cc
+core_sources = \
+	       classifier.cc \
+	       classifier.hh \
+	       feature-ex.cc \
+	       feature-ex.hh
 
 wordtip_SOURCES = \
 	${core_sources} \

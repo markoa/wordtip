@@ -8,8 +8,8 @@
 
 namespace wordtip {
 
-    typedef boost::function<void (Glib::ustring& txt,
-            std::vector<Glib::ustring>& results) > get_words_f;
+    typedef boost::function<void (const Glib::ustring& txt,
+            std::vector<Glib::ustring>& results)> get_features_func_t;
 
     void split_simple(const Glib::ustring& txt,
                       std::vector<Glib::ustring>& words);
