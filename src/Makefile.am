@@ -6,6 +6,7 @@ AM_CXXFLAGS = -Wall -Wextra \
 bin_PROGRAMS = wordtip
 
 wordtip_SOURCES = \
+	feature-ex.cc \
 	main.cc
 
 global_defines = \
