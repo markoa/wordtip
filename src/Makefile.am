@@ -5,9 +5,14 @@ AM_CXXFLAGS = -Wall -Wextra \
 
 bin_PROGRAMS = wordtip
 
+core_sources = feature-ex.cc
+
 wordtip_SOURCES = \
-	feature-ex.cc \
+	${core_sources} \
 	main.cc
+
+noinst_LIBRARIES = libwordtip.a
+libwordtip_a_SOURCES = ${core_sources}
 
 global_defines = \
 	-DPREFIX=\""$(prefix)"\" \
