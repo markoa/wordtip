@@ -61,7 +61,11 @@ namespace wordtip {
     void
     Classifier::get_all_categories(vector<ustring>& cats)
     {
-        //TODO
+        class_count::iterator it(cc_.begin());
+        class_count::iterator end(cc_.end());
+        
+        for ( ; it != end; ++it)
+            cats.push_back(it->first);
     }
 
     void
@@ -76,6 +80,13 @@ namespace wordtip {
             inc_feature(*it, category);
 
         inc_category(category);
+    }
+
+    float
+    Classifier::get_cond_prob(const ustring& feat, const ustring& cat)
+    {
+        if (cc_.find(cat) == cc_.end()) return 0.0;
+        return get_feature_count(feat, cat) / get_category_count(cat);
     }
 
 } // namespace wordtip

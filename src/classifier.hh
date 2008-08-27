@@ -40,6 +40,11 @@ namespace wordtip {
 
         virtual void get_all_categories(std::vector<Glib::ustring>& cats);
 
+        // Simple conditional probability that a word (feature)
+        // is in a particular category.
+        virtual float get_cond_prob(const Glib::ustring& feat,
+                                    const Glib::ustring& cat);
+
     protected:
         // Increase the count of a feature/category pair
         void inc_feature(const Glib::ustring& feature,
