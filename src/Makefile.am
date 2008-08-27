@@ -9,11 +9,11 @@ core_sources = \
 	       classifier.cc \
 	       classifier.hh \
 	       feature-ex.cc \
-	       feature-ex.hh
+	       feature-ex.hh \
+	       naive-bayes.cc \
+	       naive-bayes.hh
 
-wordtip_SOURCES = \
-	${core_sources} \
-	main.cc
+wordtip_SOURCES = ${core_sources} main.cc
 
 noinst_LIBRARIES = libwordtip.a
 libwordtip_a_SOURCES = ${core_sources}

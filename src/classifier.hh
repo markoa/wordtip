@@ -40,8 +40,7 @@ namespace wordtip {
         // The number of items in a category
         virtual float get_category_count(const Glib::ustring& cat);
 
-        // The total number of items
-        virtual float get_total_count();
+        virtual float get_total_document_count();
 
         virtual void get_categories(std::vector<Glib::ustring>& cats);
 

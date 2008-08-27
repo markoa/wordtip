@@ -45,7 +45,7 @@ namespace wordtip {
     }
 
     float
-    Classifier::get_total_count()
+    Classifier::get_total_document_count()
     {
         int res = 0;
         
