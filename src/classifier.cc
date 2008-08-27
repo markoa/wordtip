@@ -59,7 +59,7 @@ namespace wordtip {
     }
 
     void
-    Classifier::get_all_categories(vector<ustring>& cats)
+    Classifier::get_categories(vector<ustring>& cats)
     {
         class_count::iterator it(cc_.begin());
         class_count::iterator end(cc_.end());
@@ -87,6 +87,25 @@ namespace wordtip {
     {
         if (cc_.find(cat) == cc_.end()) return 0.0;
         return get_feature_count(feat, cat) / get_category_count(cat);
+    }
+
+    float
+    Classifier::get_weighted_prob(const ustring& feat, const ustring& cat, 
+            prob_func_t prob_f, float weight, float assumed_prob)
+    {
+        float basic_prob = prob_f(this, feat, cat);
+
+        vector<ustring> categories;
+        get_categories(categories);
+        
+        float totals = 0.;
+        vector<ustring>::iterator it(categories.begin());
+        vector<ustring>::iterator end(categories.end());
+        for ( ; it != end; ++it) totals += get_feature_count(feat, *it);
+
+        float res = 0.;
+        res = ((weight*assumed_prob) + (totals*basic_prob)) / (weight+totals);
+        return res;
     }
 
 } // namespace wordtip
