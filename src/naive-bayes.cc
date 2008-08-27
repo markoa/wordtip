@@ -3,6 +3,7 @@
 
 namespace wordtip {
 
+    using std::map;
     using std::vector;
     using Glib::ustring;
 
@@ -39,6 +40,59 @@ namespace wordtip {
         doc_prob = get_document_prob(text, cat);
 
         return doc_prob*cat_prob;
+    }
+
+    void
+    NaiveBayes::set_threshold(const ustring& cat, float threshold)
+    {
+        thresholds_[cat] = threshold;
+    }
+    
+    float
+    NaiveBayes::get_threshold(const ustring& cat)
+    {
+        if (thresholds_.find(cat) == thresholds_.end()) return 1.0;
+        return thresholds_[cat];
+    }
+
+    ustring
+    NaiveBayes::classify(const ustring& text, const ustring& default_cat)
+    {
+        ustring best_cat;
+
+        // find the category with the highest probability
+        float max = 0.;
+        map<ustring, float> probs;
+        
+        vector<ustring> categories;
+        get_categories(categories);
+
+        vector<ustring>::iterator it(categories.begin());
+        vector<ustring>::iterator end(categories.end());
+        float tmp_max;
+
+        for ( ; it != end; ++it) {
+            tmp_max = get_prob(text, *it);
+            probs[*it] = tmp_max;
+
+            if (tmp_max > max) {
+                max = tmp_max;
+                best_cat = *it;
+            }
+        }
+
+        // The probability should exceed next best probability
+        // by more then its threshold.
+        map<ustring, float>::iterator prob_it(probs.begin());
+        map<ustring, float>::iterator prob_end(probs.end());
+
+        for ( ; prob_it != prob_end; ++prob_it) {
+            if (prob_it->first == best_cat) continue;
+            if ((probs[prob_it->first] * get_threshold(best_cat)) > probs[best_cat])
+                return default_cat;
+        }
+
+        return best_cat;
     }
 
 } // namespace wordtip

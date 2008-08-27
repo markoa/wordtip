@@ -28,6 +28,15 @@ namespace wordtip {
         // which item is given.
         virtual float get_prob(const Glib::ustring& text,
                                const Glib::ustring& cat);
+
+        virtual void set_threshold(const Glib::ustring& cat, float threshold);
+        virtual float get_threshold(const Glib::ustring& cat);
+
+        // Naive Bayes classification.
+        virtual Glib::ustring classify(const Glib::ustring& text, const Glib::ustring& default_cat = Glib::ustring());
+
+    protected:
+        std::map<Glib::ustring, float> thresholds_;
     };
 
 } // namespace wordtip

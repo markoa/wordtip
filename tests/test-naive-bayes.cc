@@ -48,6 +48,16 @@ test_prob()
     cout << pr_bad << endl;
 }
 
+void
+test_classify()
+{
+    NaiveBayes cl(&wordtip::split_simple);
+    sample_train_good_bad(cl);
+
+    cout << cl.classify("quick birds", "unknown") << endl;
+    cout << cl.classify("quick money", "unknown") << endl;
+}
+
 using namespace boost::unit_test;
 
 test_suite*
@@ -57,6 +67,7 @@ init_unit_test_suite(int, char**)
 
   test->add(BOOST_TEST_CASE(&test_document_prob));
   test->add(BOOST_TEST_CASE(&test_prob));
+  test->add(BOOST_TEST_CASE(&test_classify));
 
   return test;
 }
