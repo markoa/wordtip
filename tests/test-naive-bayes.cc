@@ -10,20 +10,27 @@ using wordtip::Classifier;
 using wordtip::NaiveBayes;
 
 void
-sample_train_good_bad(Classifier& cl)
+sample_train(Classifier& cl)
 {
     cl.train("the quick brown fox jumps over the lazy dog", "good");
     cl.train("the birds are singing and the sun is bright", "good");
     cl.train("quick movement is vital in the struggle for survival", "good");
     cl.train("make quick money selling online viagra in casino", "bad");
     cl.train("buy cactus medications and reach the clouds", "bad");
+    cl.train("Stroustrup began work on C with Classes in 1979. The idea of "
+            "creating a new language originated from Stroustrup's experience "
+            "in programming for his Ph.D. thesis. Stroustrup found that "
+            "Simula had features that were very helpful for large software "
+            "development, but the language was too slow for practical use, "
+            "while BCPL was fast but too low-level to be suitable for "
+            "large software development.", "evil");
 }
 
 void
 test_document_prob()
 {
     NaiveBayes cl(&wordtip::split_simple);
-    sample_train_good_bad(cl);
+    sample_train(cl);
     
     ustring text("quick birds");
     ustring cat_good("good");
@@ -35,7 +42,7 @@ void
 test_prob()
 {
     NaiveBayes cl(&wordtip::split_simple);
-    sample_train_good_bad(cl);
+    sample_train(cl);
 
     ustring text("quick birds");
     ustring cat_good("good");
@@ -52,10 +59,11 @@ void
 test_classify()
 {
     NaiveBayes cl(&wordtip::split_simple);
-    sample_train_good_bad(cl);
+    sample_train(cl);
 
     cout << cl.classify("quick birds", "unknown") << endl;
     cout << cl.classify("quick money", "unknown") << endl;
+    cout << cl.classify("some other programming language", "unknown") << endl;
 }
 
 using namespace boost::unit_test;

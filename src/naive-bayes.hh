@@ -22,17 +22,19 @@ namespace wordtip {
         // Returns naive Bayesian probability of category cat
         // given document text:
         //
-        // Pr(cat | item) = Pr(item | cat) x Pr(cat)/Pr(item)
+        // Pr(cat | text) = Pr(text | cat) x Pr(cat)/Pr(text)
         //
-        // Here we ignore Pr(item) as it's the same no matter
+        // Here we ignore Pr(text) as it's the same no matter
         // which item is given.
         virtual float get_prob(const Glib::ustring& text,
                                const Glib::ustring& cat);
 
+        // Any resulting classification, when calculated, should be larger
+        // then the nearest result by a certain threshold.
         virtual void set_threshold(const Glib::ustring& cat, float threshold);
         virtual float get_threshold(const Glib::ustring& cat);
 
-        // Naive Bayes classification.
+        // The actual Naive Bayes classification method.
         virtual Glib::ustring classify(const Glib::ustring& text, const Glib::ustring& default_cat = Glib::ustring());
 
     protected:
