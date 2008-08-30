@@ -5,6 +5,8 @@ AM_CXXFLAGS = -Wall -Wextra \
 
 bin_PROGRAMS = wordtip
 
+EXTRA_DIST = server-introspect.xml
+
 core_sources = \
 	       classifier.cc \
 	       classifier.hh \
@@ -13,7 +15,7 @@ core_sources = \
 	       naive-bayes.cc \
 	       naive-bayes.hh
 
-wordtip_SOURCES = ${core_sources} main.cc
+wordtip_SOURCES = ${core_sources} main.cc server.cc server.hh server-glue.hh
 
 noinst_LIBRARIES = libwordtip.a
 libwordtip_a_SOURCES = ${core_sources}
@@ -31,3 +33,12 @@ AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir) $(global_defines) \
               -DWORDTIP_LOCALEDIR=\"${WORDTIP_LOCALEDIR}\"
 
 wordtip_LDADD = ${WORDTIP_LIBS}
+
+server-glue.hh:
+	dbusxx-xml2cpp server-introspect.xml --adaptor=server-glue.hh
+
+BUILT_SOURCES = server-glue.hh
+CLEANFILES = $(BUILT_SOURCES)
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)

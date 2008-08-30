@@ -3,4 +3,5 @@ lib*.a
 *.o
 Makefile
 Makefile.in
+server-glue.hh
 wordtip
