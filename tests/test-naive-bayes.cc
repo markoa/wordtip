@@ -48,8 +48,8 @@ test_prob()
     ustring cat_good("good");
     ustring cat_bad("bad");
 
-    float pr_good = cl.get_prob(text, cat_good);
-    float pr_bad = cl.get_prob(text, cat_bad);
+    double pr_good = cl.get_prob(text, cat_good);
+    double pr_bad = cl.get_prob(text, cat_bad);
 
     cout << pr_good << endl;
     cout << pr_bad << endl;

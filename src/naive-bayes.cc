@@ -12,11 +12,11 @@ namespace wordtip {
     {
     }
 
-    float
+    double
     NaiveBayes::get_document_prob(const ustring& text, const ustring& cat)
     {
         vector<ustring> features;
-        float pr = 1.;
+        double pr = 1.;
 
         feature_f_(text, features);
 
@@ -29,12 +29,12 @@ namespace wordtip {
         return pr;
     }
 
-    float
+    double
     NaiveBayes::get_prob(const ustring& text, const ustring& cat)
     {
-        float cat_prob, doc_prob;
+        double cat_prob, doc_prob;
 
-        cat_prob = static_cast<float>(get_category_count(cat)) /
+        cat_prob = static_cast<double>(get_category_count(cat)) /
                     get_total_document_count();
 
         doc_prob = get_document_prob(text, cat);
@@ -43,12 +43,12 @@ namespace wordtip {
     }
 
     void
-    NaiveBayes::set_threshold(const ustring& cat, float threshold)
+    NaiveBayes::set_threshold(const ustring& cat, double threshold)
     {
         thresholds_[cat] = threshold;
     }
     
-    float
+    double
     NaiveBayes::get_threshold(const ustring& cat)
     {
         if (thresholds_.find(cat) == thresholds_.end()) return 1.0;
@@ -61,15 +61,15 @@ namespace wordtip {
         ustring best_cat;
 
         // find the category with the highest probability
-        float max = 0.;
-        map<ustring, float> probs;
+        double max = 0.;
+        map<ustring, double> probs;
         
         vector<ustring> categories;
         get_categories(categories);
 
         vector<ustring>::iterator it(categories.begin());
         vector<ustring>::iterator end(categories.end());
-        float tmp_max;
+        double tmp_max;
 
         for ( ; it != end; ++it) {
             tmp_max = get_prob(text, *it);
@@ -83,8 +83,8 @@ namespace wordtip {
 
         // The probability should exceed next best probability
         // by more then its threshold.
-        map<ustring, float>::iterator prob_it(probs.begin());
-        map<ustring, float>::iterator prob_end(probs.end());
+        map<ustring, double>::iterator prob_it(probs.begin());
+        map<ustring, double>::iterator prob_end(probs.end());
 
         for ( ; prob_it != prob_end; ++prob_it) {
             if (prob_it->first == best_cat) continue;

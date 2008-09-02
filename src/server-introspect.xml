@@ -1,12 +1,24 @@
 <?xml version="1.0" ?>
 <node name="/org/freedesktop/Wordtip">
   <interface name="org.freedesktop.Wordtip">
-    <method name="Version">
-      <arg type="s" name="version" direction="out"/>
+    <method name="SetThreshold">
+      <arg type="s" name="category" direction="in"/>
+      <arg type="d" name="threshold" direction="in"/>
     </method>
-    <method name="Echo">
-      <arg type="s" name="msg" direction="in"/>
-      <arg type="s" name="greeting" direction="out"/>
+
+    <method name="GetThreshold">
+      <arg type="s" name="category" direction="in"/>
+      <arg type="d" name="threshold" direction="out"/>
+    </method>
+
+    <method name="Train">
+      <arg type="s" name="text" direction="in"/>
+      <arg type="s" name="category" direction="in"/>
+    </method>
+
+    <method name="Classify">
+      <arg type="s" name="text" direction="in"/>
+      <arg type="s" name="category" direction="out"/>
     </method>
   </interface>
 </node>

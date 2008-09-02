@@ -1,6 +1,5 @@
 
-#include <unistd.h>
-#include <config.h>
+#include "naive-bayes.hh"
 #include "server.hh"
 
 namespace wordtip {
@@ -13,19 +12,31 @@ namespace wordtip {
     Server::Server(DBus::Connection& connection)
         : DBus::ObjectAdaptor(connection, DBUS_SERVER_PATH)
     {
+        classifier_.reset(new NaiveBayes(&wordtip::split_simple));
+    }
+
+    void
+    Server::SetThreshold(const string& cat, const double& threshold)
+    {
+        classifier_->set_threshold(cat, threshold);
+    }
+
+    double
+    Server::GetThreshold(const string& cat)
+    {
+        return classifier_->get_threshold(cat);
+    }
+        
+    void
+    Server::Train(const string& text, const string& cat)
+    {
+        classifier_->train(text, cat);
     }
 
     string
-    Server::Version()
+    Server::Classify(const string& text)
     {
-        return PACKAGE_VERSION;
-    }
-
-    string
-    Server::Echo(const string& msg)
-    {
-        sleep(5);
-        return "you said: '" + msg + "'";
+        return classifier_->classify(text);
     }
 
 } // namespace wordtip

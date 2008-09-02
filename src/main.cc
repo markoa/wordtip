@@ -9,7 +9,7 @@ DBus::BusDispatcher dispatcher;
 void
 interrupt_handler(int sig)
 {
-    std::cout << "wordtip shutting down on signal " << sig << std::endl;
+    std::cout << "shutting down on signal " << sig << std::endl;
     dispatcher.leave();
 }
 
