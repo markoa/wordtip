@@ -2,7 +2,33 @@
           wordtip
 /////////////////////////////
 
-A nonexistent text classification desktop service.
+Wordtip is a text classification service for desktop and mobile
+applications. It uses D-Bus as a messaging system to communicate
+with clients.
 
-An open source project currently in development by Marko Anastasov
-and covered by the GNU General Public License.
+Currently alpha and with just a simple implementation of
+a Bayesian classifier, but it's working, and here's how you can
+test it with Python:
+
+----
+import dbus
+
+bus = dbus.SessionBus()
+proxy = bus.get_object('org.freedesktop.Wordtip','/org/freedesktop/Wordtip')
+wt = dbus.Interface(proxy, 'org.freedesktop.Wordtip')
+
+# It first needs to be trained with a couple of examples:
+wt.Train("the quick brown fox jumps over the lazy dog", "happy")
+wt.Train("the birds are singing and the sun is bright", "happy")
+wt.Train("When we speak of free software, we are referring to freedom, not price.", "license")
+wt.Train("without conditions so long as your license otherwise remains in force", "license")
+
+print wt.Classify("a quick sun came with me singing next to the fox")
+print wt.Classify("terms that supplement the terms of this License by making exceptions from one or more of its conditions")
+----
+
+See INSTALL for installation instructions.
+
+Wordtip is an open source project developed by Marko Anastasov
+and covered by the GNU General Public License. See COPYING for
+the exact text of the license.
