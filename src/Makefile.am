@@ -35,7 +35,7 @@ AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir) $(global_defines) \
 wordtip_LDADD = ${WORDTIP_LIBS}
 
 server-glue.hh:
-	dbusxx-xml2cpp server-introspect.xml --adaptor=server-glue.hh
+	dbusxx-xml2cpp $(top_srcdir)/src/server-introspect.xml --adaptor=server-glue.hh
 
 BUILT_SOURCES = server-glue.hh
 CLEANFILES = $(BUILT_SOURCES)
