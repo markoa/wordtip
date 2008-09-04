@@ -12,14 +12,14 @@ void
 test_feature_count()
 {
     Classifier cl(&wordtip::split_simple);
-    cl.train("one day i was going to make a tea", "good");
-    cl.train("and then a bird came and sang one of my favourite songs", "good");
-    cl.train("bla bla whatever dude, one of those days", "bad");
+    cl.train("yesterday i was going to make a tea", "good");
+    cl.train("and then a bird came yesterday too and sang of my favourite songs", "good");
+    cl.train("bla bla whatever dude, one of those days like yesterday", "bad");
 
     float val;
-    val = cl.get_feature_count("one", "good");
+    val = cl.get_feature_count("yesterday", "good");
     BOOST_CHECK_EQUAL(val, 2);
-    val = cl.get_feature_count("one", "bad");
+    val = cl.get_feature_count("yesterday", "bad");
     BOOST_CHECK_EQUAL(val, 1);
 }
 
