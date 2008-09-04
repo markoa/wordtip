@@ -7,7 +7,7 @@ test_construct()
 {
     std::vector<Glib::ustring> results;
     wordtip::split_simple("жзхеј man!\n have a... cigar();", results);
-    BOOST_CHECK_EQUAL(results.size(), 4);
+    BOOST_CHECK_EQUAL(results.size(), 3);
 
     Glib::ustring item;
     item = results[0];
@@ -17,9 +17,6 @@ test_construct()
     BOOST_CHECK_EQUAL(item.size(), 3);
     
     item = results[2];
-    BOOST_CHECK_EQUAL(item.size(), 4);
-    
-    item = results[3];
     BOOST_CHECK_EQUAL(item.size(), 5);
 }
 

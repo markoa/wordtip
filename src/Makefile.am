@@ -13,9 +13,15 @@ core_sources = \
 	       feature-ex.cc \
 	       feature-ex.hh \
 	       naive-bayes.cc \
-	       naive-bayes.hh
+	       naive-bayes.hh \
+	       stop-words-en.cc \
+	       stop-words-en.hh
 
-wordtip_SOURCES = ${core_sources} main.cc server.cc server.hh server-glue.hh
+wordtip_SOURCES = ${core_sources} \
+		  main.cc \
+		  server.cc \
+		  server.hh \
+		  server-glue.hh
 
 noinst_LIBRARIES = libwordtip.a
 libwordtip_a_SOURCES = ${core_sources}

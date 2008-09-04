@@ -1,7 +1,8 @@
 
-#include "feature-ex.hh"
 #include <iostream>
 #include <glibmm/regex.h>
+#include "feature-ex.hh"
+#include "stop-words-en.hh"
 
 namespace wordtip {
 
@@ -19,14 +20,24 @@ namespace wordtip {
                                 "\\_\\+\\=\\[\\]\\;\\/]";
         Glib::RefPtr<Glib::Regex> regex = Glib::Regex::create(spec_chars);
 
+        vector<ustring> stop_words;
+        load_stop_words_en(stop_words);
+
         vector<ustring>::iterator it(split_words.begin());
         vector<ustring>::iterator end(split_words.end());
+        vector<ustring>::iterator sw_end(stop_words.end());
         ustring none = "";
+
         for ( ; it != end; ++it) {
             ustring replaced = regex->replace(*it, 0, none,
                         static_cast<Glib::RegexMatchFlags>(0));
-            if (replaced.size() > 2 && replaced.size() < 20)
-                words.push_back(replaced.lowercase());
+            ustring word(replaced.lowercase());
+
+            bool is_stop_word =
+                find(stop_words.begin(), stop_words.end(), word) != sw_end; 
+            
+            if (word.size() > 2 && word.size() < 20 && (! is_stop_word))
+                words.push_back(word);
         }
     }
 
