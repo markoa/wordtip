@@ -3,6 +3,9 @@
 
 namespace wordtip {
 
+    /* The stop words have been taken from the Snowball project
+     * (http://snowball.tartarus.org).
+     */
     void
     load_stop_words_en(std::vector<Glib::ustring>& vec)
     {
