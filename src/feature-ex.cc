@@ -16,7 +16,7 @@ namespace wordtip {
         vector<ustring> split_words = Glib::Regex::split_simple("\\s+", txt);
 
         ustring spec_chars = "[,.!@#\\$\\%\\^\\&\\*\\(\\)"
-                                "\\_\\+\\=\\[\\]\\;\\'\\/]";
+                                "\\_\\+\\=\\[\\]\\;\\/]";
         Glib::RefPtr<Glib::Regex> regex = Glib::Regex::create(spec_chars);
 
         vector<ustring>::iterator it(split_words.begin());
@@ -26,7 +26,7 @@ namespace wordtip {
             ustring replaced = regex->replace(*it, 0, none,
                         static_cast<Glib::RegexMatchFlags>(0));
             if (replaced.size() > 2 && replaced.size() < 20)
-                words.push_back(replaced);
+                words.push_back(replaced.lowercase());
         }
     }
 
