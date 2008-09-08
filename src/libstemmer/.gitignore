@@ -1,0 +1,5 @@
+.deps/*
+.libs/*
+api.lo
+libstemmer-private.la
+*.lo

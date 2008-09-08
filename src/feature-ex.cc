@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <glibmm/regex.h>
+#include "./libstemmer/include/libstemmer.h"
 #include "feature-ex.hh"
 #include "stop-words-en.hh"
 
@@ -15,7 +16,7 @@ namespace wordtip {
         // since we have unicode text, the only safe bet is to split by
         // whitespace. then we can strip some special characters.
         vector<ustring> split_words = Glib::Regex::split_simple("\\s+", txt);
-
+        
         ustring spec_chars = "[,.!@#\\$\\%\\^\\&\\*\\(\\)"
                                 "\\_\\+\\=\\[\\]\\;\\/]";
         Glib::RefPtr<Glib::Regex> regex = Glib::Regex::create(spec_chars);

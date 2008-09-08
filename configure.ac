@@ -1,6 +1,6 @@
 ### Copyright (C) 2008 Marko Anastasov
 
-AC_INIT([wordtip], [0.1])
+AC_INIT([wordtip], [0.2])
 AC_PREREQ(2.59)
 AC_CANONICAL_TARGET
 AM_MAINTAINER_MODE
@@ -21,7 +21,7 @@ AC_SUBST(WORDTIP_VERSION)
 AC_ISC_POSIX
 AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 # *************************************
 # Compiler and platform check
@@ -125,13 +125,11 @@ AC_SUBST(WORDTIP_CFLAGS)
 # Prepare for make
 # *************************************
 
-# Allow 'make install'.
-AC_PROG_INSTALL
-
 # Generate the files:
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    src/libstemmer/Makefile
     tests/Makefile
 ])
 

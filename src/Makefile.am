@@ -1,4 +1,6 @@
 
+SUBDIRS = libstemmer
+
 AM_CXXFLAGS = -Wall -Wextra \
               -Wctor-dtor-privacy -Woverloaded-virtual -Wchar-subscripts \
               -Wpointer-arith -Wcast-align -Wsign-compare
@@ -38,7 +40,8 @@ AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir) $(global_defines) \
                ${WORDTIP_CFLAGS} \
               -DWORDTIP_LOCALEDIR=\"${WORDTIP_LOCALEDIR}\"
 
-wordtip_LDADD = ${WORDTIP_LIBS}
+wordtip_LDADD = ${WORDTIP_LIBS} \
+		$(top_builddir)/src/libstemmer/libstemmer-private.la 
 
 server-glue.hh:
 	dbusxx-xml2cpp $(top_srcdir)/src/server-introspect.xml --adaptor=server-glue.hh

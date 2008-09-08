@@ -6,4 +6,4 @@ headers= config.h
 
 dist_noinst_SCRIPTS = autogen.sh
 
-EXTRA_DIST= AUTHORS README COPYING
+EXTRA_DIST= AUTHORS COPYING INSTALL README 
