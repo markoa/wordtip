@@ -16,6 +16,8 @@ core_sources = \
 	       feature-ex.hh \
 	       naive-bayes.cc \
 	       naive-bayes.hh \
+	       stemmer.cc \
+	       stemmer.hh \
 	       stop-words-en.cc \
 	       stop-words-en.hh
 
