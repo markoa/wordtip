@@ -4,6 +4,7 @@ if AUTOTESTS
 #
 TESTS= \
 	run-test-classifier \
+	run-test-language \
 	run-test-naive-bayes \
 	run-test-split-simple \
 	run-test-stemmer
@@ -22,6 +23,10 @@ common_ld=@WORDTIP_LIBS@ \
 
 run_test_classifier_SOURCES=test-classifier.cc
 run_test_classifier_LDADD=${common_ld}
+
+run_test_language_SOURCES=test-language.cc
+run_test_language_LDADD=${common_ld} \
+		       $(top_builddir)/src/libstemmer/libstemmer-private.la 
 
 run_test_naive_bayes_SOURCES=test-naive-bayes.cc
 run_test_naive_bayes_LDADD=${common_ld}

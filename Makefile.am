@@ -1,5 +1,5 @@
 
-SUBDIRS = src tests
+SUBDIRS = data src tests
 
 ACLOCAL_AMFLAGS = -I m4
 headers= config.h

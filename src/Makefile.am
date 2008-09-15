@@ -14,6 +14,8 @@ core_sources = \
 	       classifier.hh \
 	       feature-ex.cc \
 	       feature-ex.hh \
+	       language.cc \
+	       language.hh \
 	       naive-bayes.cc \
 	       naive-bayes.hh \
 	       stemmer.cc \

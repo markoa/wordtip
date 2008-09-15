@@ -1,7 +1,7 @@
 
 #include <signal.h>
 #include <iostream>
-#include "classifier.hh"
+#include <giomm/init.h>
 #include "server.hh"
 
 DBus::BusDispatcher dispatcher;
@@ -21,6 +21,8 @@ main(int /*argc*/, char** /*argv*/)
     
     signal(SIGTERM, interrupt_handler);
     signal(SIGINT, interrupt_handler);
+
+    Gio::init();
 
     DBus::default_dispatcher = &dispatcher;
 
