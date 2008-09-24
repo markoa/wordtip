@@ -1,14 +1,17 @@
 
 #include <iostream>
 #include "classifier.hh"
+#include "feature-ex.hh"
+#include "language.hh"
 
 namespace wordtip {
 
+    using boost::shared_ptr;
     using std::vector;
     using Glib::ustring;
 
-    Classifier::Classifier(get_features_func_t function)
-        : feature_f_(function)
+    Classifier::Classifier(shared_ptr<Language> lang)
+        : lang_(lang)
     {
     }
 
@@ -72,12 +75,15 @@ namespace wordtip {
     Classifier::train(const ustring& text, const ustring& category)
     {
         vector<ustring> words;
-        feature_f_(text, words);
+        split_simple(text, words);
 
         vector<ustring>::iterator it(words.begin());
         vector<ustring>::iterator end(words.end());
-        for ( ; it != end; ++it)
-            inc_feature(*it, category);
+        for ( ; it != end; ++it) {
+            if (lang_->is_stop_word(*it)) continue;
+            ustring stemmed_word(lang_->stem_word(*it));
+            inc_feature(stemmed_word, category);
+        }
 
         inc_category(category);
     }
@@ -91,9 +97,10 @@ namespace wordtip {
 
     float
     Classifier::get_weighted_prob(const ustring& feat, const ustring& cat, 
-            prob_func_t prob_f, float weight, float assumed_prob)
+            float weight, float assumed_prob)
     {
-        float basic_prob = prob_f(this, feat, cat);
+        //TODO: the probability function might need to be arbitrary later
+        float basic_prob = get_cond_prob(feat, cat);
 
         vector<ustring> categories;
         get_categories(categories);

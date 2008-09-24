@@ -13,10 +13,7 @@ namespace wordtip {
     // The mapping of category to a feature's occurrence count
     typedef std::map<Glib::ustring, int> class_count;
 
-    class Classifier;
-    typedef boost::function<float (Classifier*,
-            const Glib::ustring& feat,
-            const Glib::ustring& cat)> prob_func_t;
+    class Language;
 
     // Stores the counts for different features in different
     // categories. For example:
@@ -27,7 +24,7 @@ namespace wordtip {
     class Classifier
     {
     public:
-        Classifier(get_features_func_t function);
+        Classifier(boost::shared_ptr<Language> lang);
         virtual ~Classifier() {}
 
         virtual void train(const Glib::ustring& text,
@@ -49,15 +46,16 @@ namespace wordtip {
         virtual float get_cond_prob(const Glib::ustring& feat,
                                     const Glib::ustring& cat);
 
-        // A weighted average of prob_f and assumed probability.
+        // A weighted average of a probability function result and
+        // assumed probability.
         //
         // Assumed probability is the starting value used
         // for unknown features.
         // A weight of 1 means the assumed probability is weighted
         // the same as one word.
         virtual float get_weighted_prob(const Glib::ustring& feat,
-                const Glib::ustring& cat, prob_func_t prob_f,
-                float weight = 1.0, float assumed_prob = 0.5);
+            const Glib::ustring& cat,
+            float weight = 1.0, float assumed_prob = 0.5);
 
     protected:
         // Increase the count of a feature/category pair
@@ -66,8 +64,8 @@ namespace wordtip {
 
         void inc_category(const Glib::ustring& cat);
 
-        get_features_func_t feature_f_;
-        
+        boost::shared_ptr<Language> lang_;
+
         features features_;
 
         // A map of how many times every category has been used:

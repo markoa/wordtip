@@ -19,14 +19,14 @@ noinst_PROGRAMS=$(TESTS)
 
 common_ld=@WORDTIP_LIBS@ \
 	  $(top_builddir)/src/libwordtip.a \
+	  $(top_builddir)/src/libstemmer/libstemmer-private.la \
 	  @BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@
 
 run_test_classifier_SOURCES=test-classifier.cc
 run_test_classifier_LDADD=${common_ld}
 
 run_test_language_SOURCES=test-language.cc
-run_test_language_LDADD=${common_ld} \
-		       $(top_builddir)/src/libstemmer/libstemmer-private.la 
+run_test_language_LDADD=${common_ld}
 
 run_test_naive_bayes_SOURCES=test-naive-bayes.cc
 run_test_naive_bayes_LDADD=${common_ld}
@@ -35,7 +35,6 @@ run_test_split_simple_SOURCES=test-split-simple.cc
 run_test_split_simple_LDADD=${common_ld}
 
 run_test_stemmer_SOURCES=test-stemmer.cc
-run_test_stemmer_LDADD=${common_ld} \
-		       $(top_builddir)/src/libstemmer/libstemmer-private.la 
+run_test_stemmer_LDADD=${common_ld}
 
 INCLUDES=-I$(top_srcdir)/src @WORDTIP_CFLAGS@ -DBOOST_TEST_DYN_LINK

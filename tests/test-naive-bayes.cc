@@ -1,12 +1,15 @@
 
 #include <iostream>
 #include <boost/test/unit_test.hpp>
+#include <giomm/init.h>
+#include "language.hh"
 #include "naive-bayes.hh"
 
 using std::cout;
 using std::endl;
 using Glib::ustring;
 using wordtip::Classifier;
+using wordtip::Language;
 using wordtip::NaiveBayes;
 
 void
@@ -29,7 +32,7 @@ sample_train(Classifier& cl)
 void
 test_document_prob()
 {
-    NaiveBayes cl(&wordtip::split_simple);
+    NaiveBayes cl(Language::create("en"));
     sample_train(cl);
     
     ustring text("quick birds");
@@ -41,7 +44,7 @@ test_document_prob()
 void
 test_prob()
 {
-    NaiveBayes cl(&wordtip::split_simple);
+    NaiveBayes cl(Language::create("en"));
     sample_train(cl);
 
     ustring text("quick birds");
@@ -58,7 +61,7 @@ test_prob()
 void
 test_classify()
 {
-    NaiveBayes cl(&wordtip::split_simple);
+    NaiveBayes cl(Language::create("en"));
     sample_train(cl);
 
     cout << cl.classify("quick birds", "unknown") << endl;
@@ -71,12 +74,13 @@ using namespace boost::unit_test;
 test_suite*
 init_unit_test_suite(int, char**)
 {
-  test_suite* test = BOOST_TEST_SUITE("naive Bayes tests");
+    Gio::init();
+    test_suite* test = BOOST_TEST_SUITE("naive Bayes tests");
 
-  test->add(BOOST_TEST_CASE(&test_document_prob));
-  test->add(BOOST_TEST_CASE(&test_prob));
-  test->add(BOOST_TEST_CASE(&test_classify));
+    test->add(BOOST_TEST_CASE(&test_document_prob));
+    test->add(BOOST_TEST_CASE(&test_prob));
+    test->add(BOOST_TEST_CASE(&test_classify));
 
-  return test;
+    return test;
 }
 

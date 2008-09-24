@@ -1,4 +1,5 @@
 
+#include "language.hh"
 #include "naive-bayes.hh"
 #include "server.hh"
 
@@ -12,7 +13,7 @@ namespace wordtip {
     Server::Server(DBus::Connection& connection)
         : DBus::ObjectAdaptor(connection, DBUS_SERVER_PATH)
     {
-        classifier_.reset(new NaiveBayes(&wordtip::split_simple));
+        classifier_.reset(new NaiveBayes(Language::create("en")));
     }
 
     void

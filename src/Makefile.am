@@ -19,9 +19,7 @@ core_sources = \
 	       naive-bayes.cc \
 	       naive-bayes.hh \
 	       stemmer.cc \
-	       stemmer.hh \
-	       stop-words-en.cc \
-	       stop-words-en.hh
+	       stemmer.hh
 
 wordtip_SOURCES = ${core_sources} \
 		  main.cc \

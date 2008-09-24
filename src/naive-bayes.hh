@@ -7,17 +7,19 @@
 
 namespace wordtip {
 
+    class Language;
+
     class NaiveBayes : public Classifier
     {
     public:
-        NaiveBayes(get_features_func_t func);
+        NaiveBayes(boost::shared_ptr<Language> lang);
         virtual ~NaiveBayes() {}
 
         // Extracts the features and multiplies all their probabilities
         // together to get an overall probability.
         // Actually calculates Pr(Document | Category).
         virtual double get_document_prob(const Glib::ustring& text,
-                                        const Glib::ustring& cat);
+                                         const Glib::ustring& cat);
 
         // Returns naive Bayesian probability of category cat
         // given document text:
@@ -27,7 +29,7 @@ namespace wordtip {
         // Here we ignore Pr(text) as it's the same no matter
         // which item is given.
         virtual double get_prob(const Glib::ustring& text,
-                               const Glib::ustring& cat);
+                                const Glib::ustring& cat);
 
         // Any resulting classification, when calculated, should be larger
         // then the nearest result by a certain threshold.

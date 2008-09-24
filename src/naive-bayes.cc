@@ -1,14 +1,17 @@
 
+#include "feature-ex.hh"
+#include "language.hh"
 #include "naive-bayes.hh"
 
 namespace wordtip {
 
     using std::map;
     using std::vector;
+    using boost::shared_ptr;
     using Glib::ustring;
 
-    NaiveBayes::NaiveBayes(get_features_func_t func)
-        : Classifier(func)
+    NaiveBayes::NaiveBayes(shared_ptr<Language> lang)
+        : Classifier(lang)
     {
     }
 
@@ -18,13 +21,17 @@ namespace wordtip {
         vector<ustring> features;
         double pr = 1.;
 
-        feature_f_(text, features);
+        split_simple(text, features);
 
         vector<ustring>::iterator it(features.begin());
         vector<ustring>::iterator end(features.end());
 
-        for ( ; it != end; ++it)
-            pr *= get_weighted_prob(*it, cat, &Classifier::get_cond_prob);
+        for ( ; it != end; ++it) {
+            if (lang_->is_stop_word(*it)) continue;
+            ustring stemmed_word(lang_->stem_word(*it));
+
+            pr *= get_weighted_prob(stemmed_word, cat);
+        }
 
         return pr;
     }
