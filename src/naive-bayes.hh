@@ -12,7 +12,7 @@ namespace wordtip {
     class NaiveBayes : public Classifier
     {
     public:
-        NaiveBayes(boost::shared_ptr<Language> lang);
+        NaiveBayes(std::tr1::shared_ptr<Language> lang);
         virtual ~NaiveBayes() {}
 
         // Extracts the features and multiplies all their probabilities

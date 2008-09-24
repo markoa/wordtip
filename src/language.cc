@@ -7,7 +7,7 @@
 
 namespace wordtip {
 
-    using boost::shared_ptr;
+    using std::tr1::shared_ptr;
     using Glib::ustring;
 
     Language::Language(const ustring& lang_code)

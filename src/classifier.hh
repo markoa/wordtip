@@ -4,8 +4,8 @@
 
 #include <list>
 #include <map>
+#include <tr1/memory>
 #include <vector>
-#include <boost/shared_ptr.hpp>
 #include "feature-ex.hh"
 
 namespace wordtip {
@@ -24,7 +24,7 @@ namespace wordtip {
     class Classifier
     {
     public:
-        Classifier(boost::shared_ptr<Language> lang);
+        Classifier(std::tr1::shared_ptr<Language> lang);
         virtual ~Classifier() {}
 
         virtual void train(const Glib::ustring& text,
@@ -64,7 +64,7 @@ namespace wordtip {
 
         void inc_category(const Glib::ustring& cat);
 
-        boost::shared_ptr<Language> lang_;
+        std::tr1::shared_ptr<Language> lang_;
 
         features features_;
 

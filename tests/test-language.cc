@@ -12,7 +12,7 @@ using wordtip::Language;
 void
 test_all()
 {
-    boost::shared_ptr<Language> lang = Language::create("en");
+    std::tr1::shared_ptr<Language> lang = Language::create("en");
     bool is_sw = lang->is_stop_word("have");
     ustring output = (is_sw) ? "true" : "false";
     cout << output << endl;

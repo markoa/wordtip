@@ -2,9 +2,9 @@
 #ifndef WORDTIP_LANGUAGE_HH
 #define WORDTIP_LANGUAGE_HH
 
+#include <tr1/memory>
 #include <vector>
 #include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 #include <glibmm/ustring.h>
 
 namespace wordtip {
@@ -14,7 +14,7 @@ namespace wordtip {
     class Language : private boost::noncopyable
     {
     public:
-        static boost::shared_ptr<Language> create(const Glib::ustring& code);
+        static std::tr1::shared_ptr<Language> create(const Glib::ustring& code);
 
         bool is_stop_word(const Glib::ustring& word);
 
@@ -24,7 +24,7 @@ namespace wordtip {
         explicit Language(const Glib::ustring& lang_code);
 
         std::vector<Glib::ustring> stop_words_;
-        boost::shared_ptr<Stemmer> stemmer_;
+        std::tr1::shared_ptr<Stemmer> stemmer_;
     };
 
 } // namespace wordtip

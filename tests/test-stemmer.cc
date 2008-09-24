@@ -5,13 +5,12 @@
 
 using std::cout;
 using std::endl;
-using boost::shared_ptr;
 using wordtip::Stemmer;
 
 void
 test_stem_word()
 {
-    shared_ptr<Stemmer> stemmer = Stemmer::create("en");
+    std::tr1::shared_ptr<Stemmer> stemmer = Stemmer::create("en");
 
     cout << stemmer->stem_word("beautiful") << endl;
 }

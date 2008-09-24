@@ -7,7 +7,7 @@ namespace wordtip {
 
     using std::map;
     using std::vector;
-    using boost::shared_ptr;
+    using std::tr1::shared_ptr;
     using Glib::ustring;
 
     NaiveBayes::NaiveBayes(shared_ptr<Language> lang)

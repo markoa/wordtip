@@ -1,7 +1,7 @@
 
+#include <tr1/memory>
 #include <glibmm/ustring.h>
 #include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 #include "./libstemmer/include/libstemmer.h"
 
 namespace wordtip {
@@ -9,7 +9,7 @@ namespace wordtip {
     class Stemmer : private boost::noncopyable
     {
     public:
-        static boost::shared_ptr<Stemmer> create(const Glib::ustring& lang_code);
+        static std::tr1::shared_ptr<Stemmer> create(const Glib::ustring& lang_code);
 
         virtual ~Stemmer();
 

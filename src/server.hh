@@ -3,7 +3,7 @@
 #define WORDTIP_SERVER_HH
 
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <tr1/memory>
 #include <dbus-c++/dbus.h>
 #include "server-glue.hh"
 
@@ -31,7 +31,7 @@ namespace wordtip {
         std::string Classify(const std::string& text);
 
     protected:
-        boost::shared_ptr<NaiveBayes> classifier_;
+        std::tr1::shared_ptr<NaiveBayes> classifier_;
     };
 
 } // namespace wordtip
