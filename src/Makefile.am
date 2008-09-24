@@ -18,6 +18,7 @@ core_sources = \
 	       language.hh \
 	       naive-bayes.cc \
 	       naive-bayes.hh \
+	       noncopyable.hh \
 	       stemmer.cc \
 	       stemmer.hh
 

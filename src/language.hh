@@ -2,16 +2,16 @@
 #ifndef WORDTIP_LANGUAGE_HH
 #define WORDTIP_LANGUAGE_HH
 
+#include "noncopyable.hh"
 #include <tr1/memory>
 #include <vector>
-#include <boost/noncopyable.hpp>
 #include <glibmm/ustring.h>
 
 namespace wordtip {
 
     class Stemmer;
 
-    class Language : private boost::noncopyable
+    class Language : NonCopyable
     {
     public:
         static std::tr1::shared_ptr<Language> create(const Glib::ustring& code);

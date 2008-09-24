@@ -1,12 +1,12 @@
 
+#include "noncopyable.hh"
+#include "./libstemmer/include/libstemmer.h"
 #include <tr1/memory>
 #include <glibmm/ustring.h>
-#include <boost/noncopyable.hpp>
-#include "./libstemmer/include/libstemmer.h"
 
 namespace wordtip {
 
-    class Stemmer : private boost::noncopyable
+    class Stemmer : NonCopyable
     {
     public:
         static std::tr1::shared_ptr<Stemmer> create(const Glib::ustring& lang_code);
