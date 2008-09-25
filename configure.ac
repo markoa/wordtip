@@ -85,10 +85,6 @@ AM_CONDITIONAL(AUTOTESTS, test x$ENABLE_AUTOTESTS = xyes)
 # *************************************
 # Library checks
 # *************************************
-AC_CHECK_HEADERS([boost/variant.hpp],
-                 [],
-                 [AC_MSG_ERROR([Please install boost development headers])])
-
 PKG_CHECK_MODULES([GLIBMM], [glibmm-2.4 >= 2.16])
 AC_SUBST([GLIBMM_CFLAGS])
 AC_SUBST([GLIBMM_LIBS])
